@@ -47,7 +47,8 @@ class VConsole {
 
     this.isInited = false;
     this.option = {
-      defaultPlugins: ['system', 'network', 'element', 'storage']
+      defaultPlugins: ['system', 'network', 'element', 'storage'],
+      container: document.documentElement,
     };
 
     this.activedTab = '';
@@ -614,13 +615,20 @@ class VConsole {
     // trigger a transitionstart event to make panel's property 'display' change from 'none' to 'block'
     let $panel = $.one('.vc-panel', this.$dom);
     $panel.style.display = 'block';
+    $panel.style.width = `${this.option.container.clientWidth}px`;
+    $panel.style.left = `${this.option.container.offsetLeft}px`;
 
     // set 10ms delay to fix confict between display and transition
-    setTimeout(function() {
+    setTimeout(() => {
       $.addClass(that.$dom, 'vc-toggle');
       that._triggerPluginsEvent('showConsole');
       let $mask = $.one('.vc-mask', that.$dom);
       $mask.style.display = 'block';
+      // size
+      $mask.style.height = `${this.option.container.clientHeight}px`;
+      $mask.style.width = `${this.option.container.clientWidth}px`;
+      $mask.style.left = `${this.option.container.offsetLeft}px`;
+      $mask.style.top = this.option.container.style.top;
     }, 10);
   }
 

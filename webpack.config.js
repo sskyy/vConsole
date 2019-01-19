@@ -1,15 +1,21 @@
-var pkg = require('./package.json');
-var Webpack = require('webpack');
-var Path = require('path');
+const pkg = require('./package.json');
+const Webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'production',
   devtool: false,
   entry: {
-    vconsole : Path.resolve(__dirname, './src/vconsole.js')
+    vconsole : path.resolve(__dirname, './src/vconsole.js')
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    // compress: true,
+    port: 9000
   },
   output: {
-    path: Path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: '[name].min.js',
     library: 'VConsole',
     libraryTarget: 'umd',
@@ -33,6 +39,10 @@ module.exports = {
     colors: true,
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'dev.html',
+      template: 'dev.html'
+    }),
     new Webpack.BannerPlugin([
         'vConsole v' + pkg.version + ' (' + pkg.homepage + ')',
         '',
