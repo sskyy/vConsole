@@ -218,5 +218,6 @@ export function getStorage(key) {
     return;
   }
   key = 'vConsole_' + key;
+  console.log(key)
   return localStorage.getItem(key);
 }

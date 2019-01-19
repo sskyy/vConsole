@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>vConsole Dev</title>
+  <style>
+    html,body{
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #root{
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width:200px;
+      border: 1px #000 solid;
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    window.vConsole = new window.VConsole({
+      container: document.getElementById('root'),
+      supportDesktop: true,
+      defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+      maxLogNumber: 1000,
+      // disableLogScrolling: true,
+      onReady: function() {
+        console.log('vConsole is ready.');
+      },
+      onClearLog: function() {
+        console.log('on clearLog');
+      }
+    });
+
+    console.info('欢迎使用 vConsole。vConsole 是一个由微信公众平台前端团队研发的 Web 前端开发者面板，可用于展示 console 日志，方便开发、调试。');
+  });
+</script>
+</body>
+</html>
